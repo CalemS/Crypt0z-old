@@ -1,0 +1,9 @@
+Building Crypt0z
+
+See doc/readme-qt.rst for instructions on building Crypt0z-Qt,
+the intended-for-end-users, nice-graphical-interface, reference
+implementation of Crypt0z.
+
+See doc/build-*.txt for instructions on building crypt0zd,
+the intended-for-services, no-graphical-interface, reference
+implementation of Crypt0z.

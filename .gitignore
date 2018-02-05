@@ -1,0 +1,34 @@
+src/*.exe
+src/crypt0z
+src/crypt0zd
+src/test_crypt0z
+.*.swp
+*.*~*
+*.bak
+*.rej
+*.orig
+*.o
+*.patch
+.crypt0z
+
+# Compilation and Qt preprocessor part
+*.qm
+Makefile
+crypt0z-qt
+Crypt0z-Qt.app
+
+# Unit-tests
+Makefile.test
+crypt0z-qt_test
+
+# Resources cpp
+qrc_*.cpp
+
+# Qt creator
+*.pro.user
+
+# Mac specific
+.DS_Store
+build
+
+!src/leveldb*/Makefile
