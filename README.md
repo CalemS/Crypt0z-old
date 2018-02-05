@@ -9,14 +9,12 @@ Copyright (c) 2011-2014 Crypt0z Developers
 What is Crypt0z?
 ----------------
 
-Crypt0z is a lite version of Bitcoin using scrypt as a proof-of-work algorithm.
- - 2.5 minute block targets
- - subsidy halves in 840k blocks (~4 years)
- - ~84 million total coins
-
-The rest is the same as Bitcoin.
- - 50 coins per block
- - 2016 blocks to retarget difficulty
+Crypt0z is a lite version of Bitcoin using scrypt as a proof-of-work algorithm for people to break by playing with it.
+ - 2 minute block targets
+ - subsidy halves... quite frequently..
+ - ~25 million total coins
+ - 620 coins per block
+ - I think I set it over 5000 blocks to retarget difficulty
 
 For more information, as well as an immediately useable, binary version of
 the Crypt0z client sofware, see http://www.crypt0z.org.
