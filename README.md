@@ -3,8 +3,9 @@ Crypt0z integration/staging tree
 
 http://www.crypt0z.org
 
-Copyright (c) 2009-2014 Bitcoin Developers
-Copyright (c) 2011-2014 Crypt0z Developers
+Copyright © 2009-2014 Bitcoin Developers
+
+Copyright © 2011-2014 Crypt0z Developers
 
 
 Dependencies
