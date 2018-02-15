@@ -2,6 +2,7 @@
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
+// Copyright (c) 20018 3Hiyatus changed emission to DOI
 
 #include "alert.h"
 #include "checkpoints.h"
@@ -11,6 +12,7 @@
 #include "init.h"
 #include "ui_interface.h"
 #include "checkqueue.h"
+#include "math.h"
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/fstream.hpp>
@@ -1087,8 +1089,21 @@ uint256 static GetOrphanRoot(const CBlockHeader* pblock)
 
 int64 static GetBlockValue(int nHeight, int64 nFees)
 {
-    int64 nSubsidy = 620 * COIN;
-    nSubsidy >>= (nHeight / 20160);
+    int64 nSubsidy = 1 * COIN;
+    int64 nsubsidy_function = 0;
+    if (nHeight == 1)
+    {
+        nSubsidy = 2000000;
+    }
+    else if (nHeight > 1 && nHeight < 1274030)
+    {
+        nsubsidy_function = ((3583.5719028332051*(pow(nHeight,8))) -(67959.212902381332*(pow(nHeight,7))) + (500144.30431838805*(pow(nHeight,6))) -(1806581.9194472283*(pow(nHeight,5))) +  (3537339.4754780694*(pow(nHeight,4))) -(4712758.2800668897*(pow(nHeight,3))) + (4535015.6408610735*(pow(nHeight,2))) + (834937.06954081857*nHeight) + (1000845.7073113875));
+        nSubsidy = (floor((nsubsidy_function*(1/60000)*0.33757734955)*100))/100; // our emission curve [no. of coins per block]
+    }
+    else
+    {
+        nSubsidy = 0;
+    }
 
     return nSubsidy + nFees;
 }
@@ -1097,10 +1112,9 @@ static const int64 nTargetTimespan = 1 * 24 * 60 * 60; // Crypt0z: 1 day
 static const int64 nTargetSpacing = 2 * 60; // Crypt0z: 2 minutes
 static const int64 nInterval = nTargetTimespan / nTargetSpacing;
 
-//
-// minimum amount of work that could possibly be required nTime after
-// minimum work required was nBase
-//
+
+// minimum amount of work that could possibly be required nTime after minimum work required was nBase
+
 unsigned int ComputeMinWork(unsigned int nBase, int64 nTime)
 {
     // Testnet has min-difficulty blocks
