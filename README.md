@@ -50,7 +50,7 @@ Crypt0z is a little personal experiment to test out a few crazy ideas... It's al
 
  - Not your normal coin specs....
  - ~25 million total coins
- - 8 Million Premine to make it rain
+ - 8 Million Flash Premine to make it rain
  - Diffusion of Innovations
  - Anything else is on the table for consideration 
 
