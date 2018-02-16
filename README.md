@@ -49,10 +49,10 @@ What is Crypt0z?
 Crypt0z is a little personal experiment to test out a few crazy ideas... It's also for people to break by playing with it. It's intended to be worthless so n00bs have no fear to practice with it untill they take the big leap into the world of crypto.
 
  - Not your normal coin specs....
- - ~25 million total coins
+ - ~25 million total coins cause thats Aussie population
  - 8 Million Flash Premine to make it rain
- - Diffusion of Innovations
- - Anything else is on the table for consideration 
+ - Diffusion of Innovations to blow your mind
+ - Anything else is on the table for consideration
 
 For more information, come hang out in the Discord! http://bit.ly/x0zDiscord
 
