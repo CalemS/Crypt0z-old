@@ -1093,7 +1093,7 @@ int64 static GetBlockValue(int nHeight, int64 nFees)
     int64 nsubsidy_function = 0;
     if (nHeight == 1)
     {
-        nSubsidy = 2000000;    // premine to be removed (i think thats the bastered)
+        nSubsidy = 2000000;    
     }
     else if (nHeight > 1 && nHeight < 1274030)
     {
