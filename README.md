@@ -3,9 +3,8 @@ What is Crypt0z?
 
 Crypt0z is a little personal experiment to test out a few crazy ideas... It's also for people to break by playing with it. It's intended to be worthless so n00bs have no fear to practice with it untill they take the big leap into the world of crypto.
 
- - 1TB Blocks
+ - 1GB Blocks
  - ~25 million total coins cause thats Aussie population
- -                         8 Million Flash Premine to make it rain - to be removed
  - Diffusion of Innovations to blow your mind
  - Difficulty Retargeting is 10 blocks because San Hiyatus says so
  - Anything else is on the table for consideration
