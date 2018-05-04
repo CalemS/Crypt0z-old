@@ -272,9 +272,9 @@ class CBitcoinAddress : public CBase58Data
 public:
     enum
     {
-        PUBKEY_ADDRESS = 75, // Crypt0z addresses start with X
+        PUBKEY_ADDRESS = 23, // Crypt0z addresses start with A
         SCRIPT_ADDRESS = 5,
-        PUBKEY_ADDRESS_TEST = 95,
+        PUBKEY_ADDRESS_TEST = 138, // Crypt0z test addresses start with x
         SCRIPT_ADDRESS_TEST = 196,
     };
 
