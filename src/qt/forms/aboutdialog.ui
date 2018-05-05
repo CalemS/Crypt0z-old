@@ -92,8 +92,7 @@
        </property>
        <property name="text">
         <string notr="true">Copyright &amp;copy; 2009-YYYY The Bitcoin developers
-Copyright &amp;copy; 2011-YYYY The Litecoin developers
-Copyright &amp;copy; 2018 Crypt0z Script Kiddie</string>
+Copyright &amp;copy; 2011-YYYY The Crypt0z developers</string>
        </property>
        <property name="textFormat">
         <enum>Qt::RichText</enum>
@@ -111,8 +110,6 @@ Copyright &amp;copy; 2018 Crypt0z Script Kiddie</string>
        <property name="text">
         <string>
 This is experimental software.
-
-Icons made by http://www.freepik.com from https://www.flaticon.com/ is licensed by http://creativecommons.org/licenses/by/3.0/
 
 Distributed under the MIT/X11 software license, see the accompanying file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
