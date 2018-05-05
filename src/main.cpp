@@ -2,7 +2,6 @@
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
-// Copyright (c) 20018 3Hiyatus changed emission to DOI
 
 #include "alert.h"
 #include "checkpoints.h"
@@ -12,7 +11,6 @@
 #include "init.h"
 #include "ui_interface.h"
 #include "checkqueue.h"
-#include "math.h"
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/fstream.hpp>
@@ -37,7 +35,7 @@ CTxMemPool mempool;
 unsigned int nTransactionsUpdated = 0;
 
 map<uint256, CBlockIndex*> mapBlockIndex;
-uint256 hashGenesisBlock("0x29943156a4f09365ee6d3e2445288d323f27c2bfcc78939c97a2154ffe851055");
+uint256 hashGenesisBlock("0xb488b885a465a70cde1d7174e6cc5d55c90e10d7db16639f368cb4ce9bba6158");
 static CBigNum bnProofOfWorkLimit(~uint256(0) >> 20); // Crypt0z: starting difficulty is 1 / 2^12
 CBlockIndex* pindexGenesisBlock = NULL;
 int nBestHeight = -1;
@@ -590,7 +588,7 @@ bool CTransaction::CheckTransaction(CValidationState &state) const
 
     if (IsCoinBase())
     {
-        if (vin[0].scriptSig.size() < 2 || vin[0].scriptSig.size() > 1000)
+        if (vin[0].scriptSig.size() < 2 || vin[0].scriptSig.size() > 100)
             return state.DoS(100, error("CTransaction::CheckTransaction() : coinbase script size"));
     }
     else
@@ -1114,7 +1112,7 @@ static const int64 nInterval = nTargetTimespan / nTargetSpacing;
 
 
 // minimum amount of work that could possibly be required nTime after minimum work required was nBase
-
+//
 unsigned int ComputeMinWork(unsigned int nBase, int64 nTime)
 {
     // Testnet has min-difficulty blocks
@@ -2754,11 +2752,11 @@ bool LoadBlockIndex()
 {
     if (fTestNet)
     {
-        pchMessageStart[0] = 0xf9;
-        pchMessageStart[1] = 0xc1;
-        pchMessageStart[2] = 0xb2;
+        pchMessageStart[0] = 0xf2;
+        pchMessageStart[1] = 0xc5;
+        pchMessageStart[2] = 0xb1;
         pchMessageStart[3] = 0xd3;
-        hashGenesisBlock = uint256("0x001c3105e4a40832d580da12264d1cf924ceeb3961c760a3b8aacea2e18cb8d0");
+        hashGenesisBlock = uint256("0x3c659948d4ee57a34fd25b4eea14427942826df64065916094843090bcb8298d");
     }
 
     //
@@ -2791,30 +2789,28 @@ bool InitBlockIndex() {
         //   vMerkleTree: 97ddfbbae6
 
         // Genesis block
-        const char* pszTimestamp = "abc.net.au/news/2018-02-04/elon-musk-tesla-to-give-solar-panels-batteries-to-sa-homes/9394352";
+        const char* pszTimestamp = "royalgazette 20180505 optimism-for-our-crypto-future";
         CTransaction txNew;
         txNew.vin.resize(1);
         txNew.vout.resize(1);
         txNew.vin[0].scriptSig = CScript() << 486604799 << CBigNum(4) << vector<unsigned char>((const unsigned char*)pszTimestamp, (const unsigned char*)pszTimestamp + strlen(pszTimestamp));
-        txNew.vout[0].nValue = 620 * COIN;
-        txNew.vout[0].scriptPubKey = CScript() << ParseHex("0438d599b30fbf376c3233f7324354d8a447c1bcd0a288c8a1c291711ab40e356571e70cfd7d160613f4f11ed271814d71d63363b0d7592a6d72d0bfa39ebbe631") << OP_CHECKSIG;
+        txNew.vout[0].nValue = 1 * COIN;
+        txNew.vout[0].scriptPubKey = CScript() << ParseHex("0487f83b0dc0489bbdc4397deb833a75c1dd660b85eb2b25b5925fa7d3b2b22fd54f0dd6a556fa0aade1ec8163198d381bec2aa06d98065b7e9dddb461ab6ca365") << OP_CHECKSIG;
         CBlock block;
         block.vtx.push_back(txNew);
         block.hashPrevBlock = 0;
         block.hashMerkleRoot = block.BuildMerkleTree();
         block.nVersion = 1;
-        block.nTime    = 1525429326;
+        block.nTime    = 1525519027;
         block.nBits    = 0x1e0ffff0;
-        block.nNonce   = 1520346407;
+        block.nNonce   = 2084877856;
 
         if (fTestNet)
         {
-            block.nTime    = 1525429292;
-            block.nNonce   = 385894000;
+            block.nTime    = 1525518981;
+            block.nNonce   = 386555605;
         }
-
-
-	if (false && block.GetHash() != hashGenesisBlock)
+if (false && block.GetHash() != hashGenesisBlock)
         {
             printf("Searching for genesis block...\n");
             // This will figure out a valid hash and Nonce if you're
@@ -2857,13 +2853,12 @@ bool InitBlockIndex() {
             printf("block.GetHash = %s\n", block.GetHash().ToString().c_str());
         }
 
-
         //// debug print
         uint256 hash = block.GetHash();
         printf("%s\n", hash.ToString().c_str());
         printf("%s\n", hashGenesisBlock.ToString().c_str());
         printf("%s\n", block.hashMerkleRoot.ToString().c_str());
-        assert(block.hashMerkleRoot == uint256("0x7558fd353b8e8cb4f7aef7a3e3bf262203014233bee84be74837056ecf92f6e1"));
+        assert(block.hashMerkleRoot == uint256("0xc742af1d51f71646d1d877dcd76a076ac39c51f77699b58d927206da96bacfee"));
         block.print();
         assert(hash == hashGenesisBlock);
 
@@ -3136,7 +3131,7 @@ bool static AlreadyHave(const CInv& inv)
 // The message start string is designed to be unlikely to occur in normal data.
 // The characters are rarely used upper ASCII, not valid as UTF-8, and produce
 // a large 4-byte int at any alignment.
-unsigned char pchMessageStart[4] = { 0xfd, 0xc2, 0xbc, 0xd4 };
+unsigned char pchMessageStart[4] = { 0xfc, 0xc4, 0xbd, 0xd5 }; // Crypt0z: Randomised
 
 
 void static ProcessGetData(CNode* pfrom)
