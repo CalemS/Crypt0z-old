@@ -7,7 +7,7 @@ What is Crypt0z?
 
 Crypt0z is a little personal experiment to test out a few crazy ideas... It's also for people to break by playing with it. It's intended to be worthless so n00bs have no fear to practice with it untill they take the big leap into the world of crypto.
 
- - int MAX_BLOCK_SIZE = 8589934592; // 8GB Blocks
+ - // 64MB Blocks
  - nTargetTimespan = 10 * 60; // Crypt0z: 10 Min
  - nTargetSpacing = 2 * 60; // Crypt0z: 2 minutes
  - MAX_MONEY = 25000000 * COIN; // ~25,000,000
