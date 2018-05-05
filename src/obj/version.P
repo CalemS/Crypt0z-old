@@ -1,0 +1,4 @@
+obj/version.o: version.cpp version.h clientversion.h \
+ /home/ubuntu/Desktop/crypt0z/src/obj/build.h
+version.cpp version.h clientversion.h :
+ /home/ubuntu/Desktop/crypt0z/src/obj/build.h :
