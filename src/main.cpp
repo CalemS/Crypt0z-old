@@ -1096,7 +1096,7 @@ int64 static GetBlockValue(int nHeight, int64 nFees)
     else if (nHeight > 1 && nHeight < 1274030)
     {
         nsubsidy_function = ((3583.5719028332051*(pow(nHeight,8))) -(67959.212902381332*(pow(nHeight,7))) + (500144.30431838805*(pow(nHeight,6))) -(1806581.9194472283*(pow(nHeight,5))) +  (3537339.4754780694*(pow(nHeight,4))) -(4712758.2800668897*(pow(nHeight,3))) + (4535015.6408610735*(pow(nHeight,2))) + (834937.06954081857*nHeight) + (1000845.7073113875));
-        nSubsidy = (floor((nsubsidy_function*(1/60000)*0.33757734955)*100))/100; // our emission curve [no. of coins per block]
+        nSubsidy = 620 * (floor((nsubsidy_function*(1/60000)*0.33757734955)*100))/100; // our emission curve [no. of coins per block]
     }
     else
     {
