@@ -1180,9 +1180,9 @@ static const char *strTestNetDNSSeed[][2] = {
     {"ec2-18-188-133-48.us-east-2.compute.amazonaws.com",
     {NULL, NULL}
 };
-
+ 
 void ThreadDNSAddressSeed()
-{
+
     static const char *(*strDNSSeed)[2] = fTestNet ? strTestNetDNSSeed : strMainNetDNSSeed;
 
     int found = 0;
