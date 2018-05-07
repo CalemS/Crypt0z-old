@@ -1180,7 +1180,7 @@ static const char *strTestNetDNSSeed[][2] = {
 };
  
 void ThreadDNSAddressSeed()
-
+{
     static const char *(*strDNSSeed)[2] = fTestNet ? strTestNetDNSSeed : strMainNetDNSSeed;
 
     int found = 0;
