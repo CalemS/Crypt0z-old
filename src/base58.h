@@ -274,7 +274,7 @@ public:
     {
         PUBKEY_ADDRESS = 28, // Crypt0z addresses start with C
         SCRIPT_ADDRESS = 5,
-        PUBKEY_ADDRESS_TEST = 95,
+        PUBKEY_ADDRESS_TEST = 88,
         SCRIPT_ADDRESS_TEST = 196,
     };
 

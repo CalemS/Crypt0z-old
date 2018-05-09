@@ -1167,6 +1167,7 @@ void MapPort(bool)
 
 
 
+
 // DNS seeds
 // Each pair gives a source name and a seed name.
 // The first name is used as information source for addrman.
@@ -1178,7 +1179,7 @@ static const char *strMainNetDNSSeed[][2] = {
 static const char *strTestNetDNSSeed[][2] = {
     {NULL, NULL}
 };
- 
+
 void ThreadDNSAddressSeed()
 {
     static const char *(*strDNSSeed)[2] = fTestNet ? strTestNetDNSSeed : strMainNetDNSSeed;
@@ -1221,9 +1222,10 @@ void ThreadDNSAddressSeed()
 
 
 
+
 unsigned int pnSeed[] =
 {
-    0x3085bc12
+    0x0d120fddc
 };
 
 void DumpAddresses()

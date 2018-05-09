@@ -3,6 +3,7 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
+#include "math.h"
 #include "alert.h"
 #include "checkpoints.h"
 #include "db.h"
@@ -35,7 +36,7 @@ CTxMemPool mempool;
 unsigned int nTransactionsUpdated = 0;
 
 map<uint256, CBlockIndex*> mapBlockIndex;
-uint256 hashGenesisBlock("0xb488b885a465a70cde1d7174e6cc5d55c90e10d7db16639f368cb4ce9bba6158");
+uint256 hashGenesisBlock("0xaadf3ac26d61a8c1194978e1d05bffd73d042a1883d19737d7ff88e63ef5ddf0");
 static CBigNum bnProofOfWorkLimit(~uint256(0) >> 20); // Crypt0z: starting difficulty is 1 / 2^12
 CBlockIndex* pindexGenesisBlock = NULL;
 int nBestHeight = -1;
@@ -53,9 +54,9 @@ bool fTxIndex = false;
 unsigned int nCoinCacheSize = 5000;
 
 /** Fees smaller than this (in satoshi) are considered zero fee (for transaction creation) */
-int64 CTransaction::nMinTxFee = 1;
+int64 CTransaction::nMinTxFee = 100000;
 /** Fees smaller than this (in satoshi) are considered zero fee (for relaying) */
-int64 CTransaction::nMinRelayTxFee = 1;
+int64 CTransaction::nMinRelayTxFee = 100000;
 
 CMedianFilter<int> cPeerBlockCounts(8, 0); // Amount of blocks that other nodes claim to have
 
@@ -1085,33 +1086,67 @@ uint256 static GetOrphanRoot(const CBlockHeader* pblock)
     return pblock->GetHash();
 }
 
+//int64 static GetBlockValue(int nHeight, int64 nFees)
+//{
+//   int64 nSubsidy = 20 * COIN;
+//                                     // Subsidy is cut in half every 840000 blocks, which will occur approximately every 4 years
+//    nSubsidy >>= (nHeight / 10000); // Crypt0z: 840k blocks in ~4 years
+//
+//    return nSubsidy + nFees;
+//}
+
+//static const int64 nTargetTimespan = 0.25 * 24 * 60 * 60; // Crypt0z: 1/4 day | 6hr
+//static const int64 nTargetSpacing = 5 * 60; // Crypt0z: 5 minutes
+//static const int64 nInterval = nTargetTimespan / nTargetSpacing;
+
+
 int64 static GetBlockValue(int nHeight, int64 nFees)
 {
-    double nSubsidy = 1 * COIN;
-    double nsubsidy_function = 0;
-    if (nHeight == 1)
+    int64 nSubsidy = 51.67 * COIN;
+    
+    if (nHeight == 1) 
     {
         nSubsidy = 2000000;    
     }
-    else if (nHeight > 1 && nHeight < 1274030)
+    else if (nHeight > 1 && nHeight < 96768) 
     {
-        nsubsidy_function = ((3583.5719028332051*(pow(nHeight,8))) -(67959.212902381332*(pow(nHeight,7))) + (500144.30431838805*(pow(nHeight,6))) -(1806581.9194472283*(pow(nHeight,5))) +  (3537339.4754780694*(pow(nHeight,4))) -(4712758.2800668897*(pow(nHeight,3))) + (4535015.6408610735*(pow(nHeight,2))) + (834937.06954081857*nHeight) + (1000845.7073113875));
-        nSubsidy = 620 * (floor((nsubsidy_function*(1/60000)*0.33757734955)*100))/100; // our emission curve [no. of coins per block]
+       nSubsidy = 51.67;
+   }
+   else if (nHeight > 96767 && nHeight < 387072) 
+   {
+        nSubsidy = 25.83;
     }
-    else
+    else if (nHeight > 387071 && nHeight < 774144) 
+    {    
+        nSubsidy = 12.92;
+    }
+    else 
     {
-        nSubsidy = 0;
+        nSubsidy = 6.45;
     }
 
     return nSubsidy + nFees;
 }
 
-static const int64 nTargetTimespan = 10 * 60; // Crypt0z: 10 Min
-static const int64 nTargetSpacing = 2 * 60; // Crypt0z: 2 minutes
-static const int64 nInterval = nTargetTimespan / nTargetSpacing;
+
+static const int64 nInterval  = 72;                  // Number of intervals between retargets   72   (blocks)
+
+static const int64 nTargetSpacing     = 300;                                       // Target number of seconds per block solve (seconds/block) 5 mins
+
+static const int64 nTargetTimespan    = 21600;                                     // Target number of seconds per block solve (seconds) diff retarget 6 hours
+
+// blep
+
+//}
+//static const int64 nTargetTimespan = 0.25 * 24 * 60 * 60; // Crypt0z: 1/4 day | 6hr
+//static const int64 nTargetSpacing = 5 * 60; // Crypt0z: 5 minutes
+//static const int64 nInterval = nTargetTimespan / nTargetSpacing;
 
 
-// minimum amount of work that could possibly be required nTime after minimum work required was nBase
+
+//
+// minimum amount of work that could possibly be required nTime after
+// minimum work required was nBase
 //
 unsigned int ComputeMinWork(unsigned int nBase, int64 nTime)
 {
@@ -2752,11 +2787,11 @@ bool LoadBlockIndex()
 {
     if (fTestNet)
     {
-        pchMessageStart[0] = 0xf2;
-        pchMessageStart[1] = 0xc5;
-        pchMessageStart[2] = 0xb1;
-        pchMessageStart[3] = 0xd3;
-        hashGenesisBlock = uint256("0x3c659948d4ee57a34fd25b4eea14427942826df64065916094843090bcb8298d");
+        pchMessageStart[0] = 0xfb;
+        pchMessageStart[1] = 0xc2;
+        pchMessageStart[2] = 0xb6;
+        pchMessageStart[3] = 0xdd;
+        hashGenesisBlock = uint256("0xff216668d7019963030548f210757510e6165f3e0cee243a84ed3cf074ee7a77");
     }
 
     //
@@ -2789,27 +2824,28 @@ bool InitBlockIndex() {
         //   vMerkleTree: 97ddfbbae6
 
         // Genesis block
-        const char* pszTimestamp = "royalgazette 20180505 optimism-for-our-crypto-future";
+        const char* pszTimestamp = "Global Elite is Hoarding $10B in Bitcoin Bunkers";
         CTransaction txNew;
         txNew.vin.resize(1);
         txNew.vout.resize(1);
         txNew.vin[0].scriptSig = CScript() << 486604799 << CBigNum(4) << vector<unsigned char>((const unsigned char*)pszTimestamp, (const unsigned char*)pszTimestamp + strlen(pszTimestamp));
-        txNew.vout[0].nValue = 1 * COIN;
-        txNew.vout[0].scriptPubKey = CScript() << ParseHex("0487f83b0dc0489bbdc4397deb833a75c1dd660b85eb2b25b5925fa7d3b2b22fd54f0dd6a556fa0aade1ec8163198d381bec2aa06d98065b7e9dddb461ab6ca365") << OP_CHECKSIG;
+        txNew.vout[0].nValue = 51.67 * COIN;
+        txNew.vout[0].scriptPubKey = CScript() << ParseHex("04bfe9eebc63082e4af2134e800f3d338efed49857726bf33730b5b33f2566b4f9a6884e8a6b70826105aa31d8ddfc2f558d5876809e4cfb23c700508d8c3596fb") << OP_CHECKSIG;
         CBlock block;
         block.vtx.push_back(txNew);
         block.hashPrevBlock = 0;
         block.hashMerkleRoot = block.BuildMerkleTree();
         block.nVersion = 1;
-        block.nTime    = 1525519027;
+        block.nTime    = 1525888939;
         block.nBits    = 0x1e0ffff0;
-        block.nNonce   = 2084877856;
+        block.nNonce   = 2085805743;
 
         if (fTestNet)
         {
-            block.nTime    = 1525518981;
-            block.nNonce   = 386555605;
+            block.nTime    = 1525888924;
+            block.nNonce   = 389100385;
         }
+
 if (false && block.GetHash() != hashGenesisBlock)
         {
             printf("Searching for genesis block...\n");
@@ -2853,12 +2889,14 @@ if (false && block.GetHash() != hashGenesisBlock)
             printf("block.GetHash = %s\n", block.GetHash().ToString().c_str());
         }
 
+
+
         //// debug print
         uint256 hash = block.GetHash();
         printf("%s\n", hash.ToString().c_str());
         printf("%s\n", hashGenesisBlock.ToString().c_str());
         printf("%s\n", block.hashMerkleRoot.ToString().c_str());
-        assert(block.hashMerkleRoot == uint256("0xc742af1d51f71646d1d877dcd76a076ac39c51f77699b58d927206da96bacfee"));
+        assert(block.hashMerkleRoot == uint256("0x2eb04e0f4b9a2589e912f7e8b8e650bf8b8b64354c4023cc6dc0ab5c0843a8e8"));
         block.print();
         assert(hash == hashGenesisBlock);
 
@@ -3131,7 +3169,7 @@ bool static AlreadyHave(const CInv& inv)
 // The message start string is designed to be unlikely to occur in normal data.
 // The characters are rarely used upper ASCII, not valid as UTF-8, and produce
 // a large 4-byte int at any alignment.
-unsigned char pchMessageStart[4] = { 0xfc, 0xc4, 0xbd, 0xd5 }; // Crypt0z: Randomised
+unsigned char pchMessageStart[4] = { 0xfc, 0xc1, 0xb5, 0xdc }; // 
 
 
 void static ProcessGetData(CNode* pfrom)
