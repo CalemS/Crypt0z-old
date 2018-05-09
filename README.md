@@ -1,20 +1,25 @@
-WIP | 
+Crypt0z integration/staging tree
+================================
 
+http://www.crypt0z.org
 
+Copyright (c) 2009-2014 Bitcoin Developers
+Copyright (c) 2011-2014 Crypt0z Developers
 
 What is Crypt0z?
 ----------------
 
-Crypt0z is a little personal experiment to test out a few crazy ideas... It's also for people to break by playing with it. It's intended to be worthless so n00bs have no fear to practice with it untill they take the big leap into the world of crypto.
+Crypt0z is a lite version of Bitcoin using scrypt as a proof-of-work algorithm.
+ - 2.5 minute block targets
+ - subsidy halves in 840k blocks (~4 years)
+ - ~84 million total coins
 
- - // 64MB Blocks
- - nTargetTimespan = 10 * 60; // Crypt0z: 10 Min
- - nTargetSpacing = 2 * 60; // Crypt0z: 2 minutes
- - MAX_MONEY = 25000000 * COIN; // ~25,000,000
- - Diffusion of Innovations Sigmoid Minting Schedule
- 
+The rest is the same as Bitcoin.
+ - 50 coins per block
+ - 2016 blocks to retarget difficulty
 
-For more information, come hang out in the Discord! http://bit.ly/x0zDiscord
+For more information, as well as an immediately useable, binary version of
+the Crypt0z client sofware, see http://www.crypt0z.org.
 
 License
 -------
@@ -65,48 +70,4 @@ Unit tests for the GUI code are in `src/qt/test/`. To compile and run them:
     qmake BITCOIN_QT_TEST=1 -o Makefile.test bitcoin-qt.pro
     make -f Makefile.test
     ./crypt0z-qt_test
-
-Crypt0z integration/staging tree
-================================
-
-http://www.crypt0z.org
-
-Copyright © 2009-2014 Bitcoin Developers
-
-Copyright © 2011-2014 Crypt0z Developers
-
-
-Dependencies
-------
-
-Since nobody likes to list these on their GitHub page for convenience, here are a list of dependencies
-
-:: Linux Build ::
-
-
-Just copy paste everything below here into Terminal and all should work fine.
-If users are downloading and using the pre-compiled build it should work OK' after installing the following below.
-
-**:: /!\ /!\ :: COPY ONE LINE AT A TIME :: /!\ /!\ ::**
-
-    sudo add-apt-repository ppa:bitcoin/bitcoin -y
-    sudo apt-get update
-
-**:: Install dev packages and dependencies ::**
-
-    sudo apt-get -y install build-essential libtool autotools-dev automake pkg-config libssl-dev libevent-dev bsdmainutils python3
-    sudo apt-get -y install libboost-system-dev libboost-filesystem-dev libboost-chrono-dev libboost-program-options-dev libboost-test-dev libboost-thread-dev
-    sudo apt-get -y install libboost-all-dev
-    sudo apt-get -y install libdb4.8-dev libdb4.8++-dev
-    sudo apt-get -y install libminiupnpc-dev
-    sudo apt-get -y install libzmq3-dev
-
-**:: Install Qt + dev tools ::**
-
-    sudo apt-get -y install libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools5-dev-tools libprotobuf-dev protobuf-compiler
-    sudo apt-get -y install libqt4-dev libprotobuf-dev protobuf-compiler
-    sudo apt-get -y install libqrencode-dev
-
-References: https://github.com/bitcoin/bitcoin/blob/master/doc/build-unix.md#berkeley-db
-
 
